@@ -12,7 +12,7 @@ conn, addr = s.accept()
 print ('Connected by', addr)
 
 while 1:
-    data = conn.recv(4096)
+    data = conn.recv(4)
     if not data: break
     conn.send(data)
 conn.close()

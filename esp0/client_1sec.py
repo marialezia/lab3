@@ -1,3 +1,4 @@
+#client 1 secondo
 import socket
 import struct as st
 import soundcard as sc

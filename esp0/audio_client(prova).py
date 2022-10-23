@@ -22,10 +22,10 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
 
-for i in range(48000):
+for i in range(4):
     data_string = pickle.dumps(el[i])
     s.send(data_string)
-data = s.recv(4096)
+data = s.recv(4)
 data_arr = pickle.loads(data)
 
 s.close()
