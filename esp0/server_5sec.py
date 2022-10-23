@@ -17,7 +17,6 @@ print ('Connected by', addr)
 lb = st.unpack('i', conn.recv(4) )
 l = int(lb[0])
 
-
 print('array da acquisire è lungo ', l)
 
 y = np.ones(l)
@@ -28,8 +27,6 @@ for i in range(l):
     y[i] = float(dd[0])
     if not data: break
 
-
-#print('array acquisito è lungo ', len(y))
 print('array acquisito: ', y)
 conn.close()
 

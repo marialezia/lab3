@@ -1,4 +1,5 @@
 #client 1 secondo
+
 import socket
 import struct as st
 import soundcard as sc
@@ -12,8 +13,9 @@ registrazione = default_mic.record(samplerate=48000, numframes=48000)
 print("Array acquisito: ")
 print(registrazione)
 
-y = np.ones(len(registrazione))
-for i in range(len(registrazione)):
+l = len(registrazione)
+y = np.ones(l)
+for i in range(l):
     y[i] = registrazione[i][0]
     
 
@@ -22,9 +24,11 @@ PORT = 12345
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
-for i in range(len(registrazione)):
+lb = st.pack('i', l)
+s.send(lb)
+
+for i in range(l):
     yb = st.pack('d', y[i])
     s.send(yb)
 
 s.close()
-
