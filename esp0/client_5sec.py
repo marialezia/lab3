@@ -18,7 +18,7 @@ y = np.ones(l)
 for i in range(l):
     y[i] = registrazione[i][0]
 
-HOST = ''
+HOST = '192.168.201.223'
 PORT = 12355
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
