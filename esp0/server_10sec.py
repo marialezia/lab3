@@ -28,6 +28,8 @@ for i in range(l):
     if not data: break
 
 print('array acquisito: ', y)
+
+conn.sendall("audio ricevuto ".encode())
 conn.close()
 
 speakers = sc.all_speakers()

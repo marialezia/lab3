@@ -15,6 +15,7 @@ conn, addr = s.accept()
 print ('Connected by', addr)
 
 lb = st.unpack('i', conn.recv(4) )
+
 l = int(lb[0])
 
 print('array da acquisire è lungo ', l)
@@ -28,6 +29,9 @@ for i in range(l):
     if not data: break
 
 print('array acquisito: ', y)
+
+conn.sendall("audio ricevuto ".encode())
+
 conn.close()
 
 

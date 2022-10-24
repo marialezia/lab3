@@ -28,4 +28,7 @@ for i in range(l):
     yb = st.pack('d', y[i])
     s.send(yb)
 
+data = s.recv(1024)
+print('server replied: ', data.decode())
+
 s.close()
