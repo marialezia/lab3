@@ -1,12 +1,13 @@
 #server 5 secondi
 
 import socket
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 import struct as st
 import soundcard as sc
 
-HOST = 'localhost'
+HOST = ''
 PORT = 12355
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
@@ -24,6 +25,9 @@ y = np.ones(l)
 
 for i in range(l):
     data = conn.recv(8)
+    if len(data) != 8 :
+        time.sleep(0.001)
+    #print(i, len(data))
     dd = st.unpack('d',data)
     y[i] = float(dd[0])
     if not data: break
