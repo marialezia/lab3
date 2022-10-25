@@ -1,11 +1,13 @@
+#invio di una stringa, client
+
 import socket
 
-host = socket.gethostname()
+host = 'local host'
 print("host ", host)
-#host = "local host"
-#host = "93.33.51.172"
 
-port = 12345                   # The same port as used by the server
+
+
+port = 12345                   
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))

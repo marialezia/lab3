@@ -1,7 +1,9 @@
+#invio di una stinga, client
 import socket, pickle
 
 HOST = 'localhost'
-PORT = 50007
+PORT = 12345
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 arr = ([1,2,3,4,5,6],[1,2,3,4,5,6])

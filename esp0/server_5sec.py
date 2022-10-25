@@ -25,9 +25,8 @@ y = np.ones(l)
 
 for i in range(l):
     data = conn.recv(8)
-    if len(data) != 8 :
-        time.sleep(0.001)
-    #print(i, len(data))
+    print(i, len(data))
+    time.sleep(0.00001)
     dd = st.unpack('d',data)
     y[i] = float(dd[0])
     if not data: break
@@ -54,6 +53,6 @@ t = 5/l
 x = np.arange(0, 5, t)
 
 plt.title('audio 5 secondi')
-plt.plot(x, y, color = 'red')
+plt.plot(x, y, color = 'violet')
 plt.show()
 
