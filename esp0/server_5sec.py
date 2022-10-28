@@ -52,7 +52,9 @@ print("L'array dei dati registrati è lungo ", len(y))
 t = 5/l
 x = np.arange(0, 5, t)
 
-plt.title('audio 5 secondi')
+plt.title('Audio 5 secondi')
 plt.plot(x, y, color = 'violet')
+plt.xlabel('Tempo[s]')
+plt.ylabel('Intensità segnale')
 plt.show()
 
