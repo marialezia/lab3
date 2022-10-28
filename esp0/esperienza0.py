@@ -26,7 +26,7 @@ t = 1/frequenza
 x = np.arange(0, 10, t)
 
 plt.title('Audio registrato')
-plt.plot(x, y, color = 'forestgreen')
+plt.plot(x, y, color = 'seagreen')
 plt.xlabel('Tempo[s]')
 plt.ylabel('Intensità segnale')
 plt.show()
