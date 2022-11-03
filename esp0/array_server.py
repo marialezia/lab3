@@ -1,5 +1,6 @@
 #invio di un array, server
 import socket
+import pickle
 
 HOST = 'localhost'
 PORT = 12345
@@ -8,8 +9,15 @@ s.bind((HOST, PORT))
 s.listen(1)
 conn, addr = s.accept()
 print ('Connected by', addr)
-while 1:
-    data = conn.recv(4096)
-    if not data: break
-    conn.send(data)
+
+data = conn.recv(4096)
+
+data_arr = pickle.loads(data)
+print('array ricevuto: ', data_arr)
+
+if not data_arr:
+	conn.sendall('non Ricevuto'.encode())
+else:
+	conn.sendall('Ricevuto'.encode()) 
+
 conn.close()
