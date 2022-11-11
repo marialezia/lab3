@@ -12,5 +12,6 @@ print('v_in = ', v_in)
 
 guadagno = v_out/v_in
 plt.plot(f, guadagno)
+plt.xscale('log')
 plt.show()
 
