@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-inv_217_220 = pd.read_csv('inv_217_220.csv')
+inv_217_220 = pd.read_csv('dati_217_220.csv')
 print(inv_217_220)
 
 f  = np.array(inv_217_220['FREQUENZA'])
@@ -26,7 +26,7 @@ tabella['V_OUT_err [V]'] = v_out_err
 tabella['G = V_OUT/V_IN'] = guadagno
 tabella['G_err'] = guadagno_err
 print(tabella)
-tabella.to_csv('inv_217_220_def.csv', index=False)
+tabella.to_csv('tabella_217_220.csv', index=False)
 
 plt.errorbar(f, guadagno, xerr = f_err, yerr = guadagno_err)
 plt.xlabel('Frequenza [Hz]')

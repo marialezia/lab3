@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-der_100 = pd.read_csv('der_100.csv')
+der_100 = pd.read_csv('dati_der_100.csv')
 print(der_100)
 
 f  = np.array(der_100['FREQUENZE'])
