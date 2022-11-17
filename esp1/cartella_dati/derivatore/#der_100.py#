@@ -22,6 +22,9 @@ f  = np.array(der_100['FREQUENZE'])
 v_in =np.array(der_100['V_IN'])
 v_out = np.array(der_100['V_OUT'])
 
+f_err =
+v_in_err = np.
+
 guadagno_teor = g(f, r, c)
 guadagno = v_out/v_in
 plt.plot(f, guadagno, '-o')
