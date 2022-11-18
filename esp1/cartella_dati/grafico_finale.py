@@ -61,10 +61,10 @@ vl5_out_err = np.full(len(vl5_out), 0.1) #prova
 
 guadagnol5 = vl5_out/vl5_in
 guadagnol5_err = np.sqrt(vl5_out_err**2+vl5_in_err**2*vl5_out**2/(vl5_in**2))/vl5_in
-
+'''
 fig, ax = plt.subplots(1,4, figsize = (36,6))
 
-'''
+
 ax[0].errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, color = 'pink', label = 'invertente 217_220')
 ax[1].errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err, color = 'lightseagreen', label = 'invertente 220_100')
 ax[2].errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, color = 'rebeccapurple', label = 'invertente 100_220')
@@ -93,24 +93,30 @@ plt.show()
 #fit rette guadagno
 
 def retta(x, m, q):
-    return m*x+q
+    return m*np.log10(x)+np.log10(q)
 
-pstart = np.array([1, 1])
-par12, par_cov12 = optimize.curve_fit(retta, f12[5:f12.size], guadagno12[5:f12.size], p0=[pstart])
+pstart = np.array([100, 1])
+par12, par_cov12 = optimize.curve_fit(retta, f12[6:f12.size], guadagno12[6:f12.size], p0=[pstart])
 par22, par_cov22 = optimize.curve_fit(retta, f22[3:f22.size], guadagno22[3:f22.size], p0=[pstart])
 par21, par_cov21 = optimize.curve_fit(retta, f21[3:f21.size], guadagno21[3:f21.size], p0=[pstart])
 
-y12=retta(f12[5:f12.size], par12[0], par12[1])
+y12=retta(f12[6:f12.size], par12[0], par12[1])
 y22=retta(f22[3:f22.size], par22[0], par22[1])
 y21=retta(f21[3:f21.size], par21[0], par21[1])
 
-
+'''
 plt.errorbar(f22[3:f22.size], guadagno22[3:f22.size], xerr = f22_err[3:f22.size], yerr = guadagno22_err[3:f22.size], fmt = '-o', color = 'pink', label = 'invertente 217_220')
 plt.errorbar(f21[3:f21.size], guadagno21[3:f21.size], xerr = f21_err[3:f21.size], yerr = guadagno21_err[3:f21.size],fmt = '-o',  color = 'lightseagreen', label = 'invertente 220_100')
-plt.errorbar(f12[5:f12.size], guadagno12[5:f12.size], xerr = f12_err[5:f12.size], yerr = guadagno12_err[5:f12.size], fmt = '-o', color = 'rebeccapurple', label = 'invertente 100_220')
+plt.errorbar(f12[6:f12.size], guadagno12[6:f12.size], xerr = f12_err[6:f12.size], yerr = guadagno12_err[6:f12.size], fmt = '-o', color = 'rebeccapurple', label = 'invertente 100_220')'''
 plt.plot(f22[3:f22.size], y22, color='magenta', label='fit 217_220')
 plt.plot(f21[3:f21.size], y21, color='aqua', label='fit 220_100')
-plt.plot(f12[5:f12.size], y12, color='violet', label='fit 100_220')
+plt.plot(f12[6:f12.size], y12, color='violet', label='fit 100_220')
+#plt.xscale('log')
+#plt.yscale('log')
 plt.legend()
 
 plt.show()
+
+print('parametri 100_200: ', par12)
+print('parametri 200_200: ', par22)
+print('parametri 200_100: ', par21)
