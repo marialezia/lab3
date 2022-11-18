@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from scipy import optimize
 
 def g(F, R, C):
     return 2*np.pi*R*C*F
@@ -29,3 +30,18 @@ plt.plot(f, guadagno_teor)
 
 plt.show()
 
+#fit dati range dati 0-6
+
+pstart = np.array([100, 0.000001])
+par, par_cov = optimize.curve_fit(g, f[:8], guadagno[:8], p0=[pstart])
+
+y=g(f[:8], par[0], par[1])
+
+plt.plot(f[:8], guadagno[:8], '-o', label='retta dati')
+plt.plot(f, guadagno_teor, label='retta teorica')
+plt.plot(f[:8], y, label='fit')
+plt.legend()
+plt.show()
+print('parametri: ', par)
+freq_fit = 1/(2*np.pi*par[0]*par[1])
+print('frequenza di taglio fit: ', freq_fit)
