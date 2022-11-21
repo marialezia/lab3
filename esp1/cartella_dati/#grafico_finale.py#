@@ -70,6 +70,7 @@ guadagnol5_err = np.sqrt(vl5_out_err**2+vl5_in_err**2*vl5_out**2/(vl5_in**2))/vl
 
 
 #grafici separati invertente
+
 '''
 fig, ax = plt.subplots(1,3, figsize = (36,6))
 
