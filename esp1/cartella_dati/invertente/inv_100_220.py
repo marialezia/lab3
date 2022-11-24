@@ -32,7 +32,6 @@ print(tabella)
 tabella.to_csv('tabella_100_220.csv', index=False)
 
 
-
 plt.errorbar(f, guadagno, xerr = f_err, yerr = guadagno_err)
 plt.xlabel('Frequenza [Hz]')
 plt.ylabel('Guadagno')
