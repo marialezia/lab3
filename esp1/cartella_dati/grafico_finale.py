@@ -1,8 +1,8 @@
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import optimize
+
 
 #INVERTENTE 217_220: dati da file csv, calcolo guadagno e propagazione errori
 
@@ -50,23 +50,11 @@ v12_out_err = np.full(len(v12_out), 0.01) #prova
 guadagno12 = v12_out/v12_in
 guadagno12_err = np.sqrt(v12_out_err**2+v12_in_err**2*v12_out**2/(v12_in**2))/v12_in
 
+#calcolo guadagno teorico
 
-#LOOP APERTO PROBABILMENTE VA CANCELLATO 
-loopap_5 = pd.read_csv('~/lab3/esp1/cartella_dati/loop_aperto/loopap_5.csv')
-
-
-fl5  = np.array(loopap_5['FREQUENZA'])
-vl5_in =np.array(loopap_5['V_IN'])
-vl5_out = np.array(loopap_5['V_OUT'])
-
- 
-fl5_err = np.array([1,1,100,100,100]) #prova
-vl5_in_err = np.full(len(vl5_in), 0.1) #prova
-vl5_out_err = np.full(len(vl5_out), 0.1) #prova
-
-
-guadagnol5 = vl5_out/vl5_in
-guadagnol5_err = np.sqrt(vl5_out_err**2+vl5_in_err**2*vl5_out**2/(vl5_in**2))/vl5_in
+A22 = np.full(len(v22_in),217/215)
+A21 = np.full(len(v21_in),217/98)
+A12 = np.full(len(v12_in), 98/217)
 
 
 #grafici separati invertente
@@ -98,11 +86,15 @@ plt.show()
 '''
 
 #grafico tutti insieme invertente
-plt.errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'invertente 217_215')
-plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label = 'invertente 217_98' )
-plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label = 'invertente 98 _217')
+plt.errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'invertente $R_1= 217 \ \Omega$ e $R_2 =  215 \ \Omega$')
+plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label =  'invertente $R_1= 217 \ \Omega$ e $R_2 =  98 \ \Omega$')
+plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label =  'invertente $R_1= 98 \ \Omega$ e $R_2 =  217 \ \Omega$')
 plt.xscale('log')
-plt.yscale('log')
+plt.plot(f22, A22, color = 'palevioletred', alpha= 0.5)
+plt.plot(f12, A12, color = 'teal', alpha = 0.5)
+plt.plot(f21, A21, color = 'indigo', alpha = 0.5)
+
+#plt.yscale('log')
 plt.legend()
 plt.grid()
 
