@@ -98,12 +98,13 @@ plt.show()
 '''
 
 #grafico tutti insieme invertente
-plt.errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, fmt = '-o', color = 'pink', label = 'invertente 217_215')
-plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  color = 'lightseagreen', label = 'invertente 217_98' )
-plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o', color = 'rebeccapurple', label = 'invertente 98 _217')
+plt.errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'invertente 217_215')
+plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label = 'invertente 217_98' )
+plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label = 'invertente 98 _217')
 plt.xscale('log')
 plt.yscale('log')
 plt.legend()
+plt.grid()
 
 plt.show()
 
