@@ -38,4 +38,3 @@ plt.xlabel('Frequenza (Hz)')
 plt.ylabel('Guadagno')
 plt.xscale('log')
 plt.show()
-
