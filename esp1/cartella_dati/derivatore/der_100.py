@@ -6,34 +6,65 @@ from scipy import optimize
 def g(F, R, C):
     return 2*np.pi*R*C*F
 
+#dati da file csv
 der_100 = pd.read_csv('dati_der_100.csv')
 print(der_100)
 
+f  = np.array(der_100['FREQUENZE'])
+v_in =np.array(der_100['V_IN'])
+v_out = np.array(der_100['V_OUT'])
+
+f_err = np.array([1,1,1,1,1,1,100,100,100,100,100,100,100]) #prova
+v_in_err = np.full(len(v_in), 0.01) #prova
+v_out_err = np.full(len(v_out), 0.01) #prova
+
+#calcolo frequenza di taglio e propagazione errori
 r = 98
 c = 10**(-6)
 r_err = 0.1 #prova
 c_err = 10**(-8) #prova
 
 f_taglio = 1/(np.pi*2*r*c)
+f_taglio_err = (r_err**2/r**2+c_err**2/c**2)**0.5/(np.pi*2*r*c)
+
 f_taglio_sperimentale = 1645
+f_taglio_sperimentale_err = 1 #prova
+
+
 print('la frequenza di taglio teorica è ', f_taglio)
 print('la frequenza di taglio sperimentale è ', f_taglio_sperimentale)
 
-f  = np.array(der_100['FREQUENZE'])
-v_in =np.array(der_100['V_IN'])
-v_out = np.array(der_100['V_OUT'])
-
+#calcolo guadagno e propagazione errori
 guadagno_teor = g(f, r, c)
 guadagno = v_out/v_in
-plt.plot(f, guadagno, '-o')
-plt.plot(f, guadagno_teor)
+guadagno_err = np.sqrt(v_out_err**2+v_in_err**2*v_out**2/(v_in**2))/v_in
 
+#tabella con errori e guadagno, scrivo su csv
+tabella = pd.DataFrame()
+tabella['FREQUENZA (Hz)'] = f
+tabella['FREQ_err (Hz)'] = f_err
+tabella['V_IN (V)'] = v_in
+tabella['V_IN_err (V)'] = v_in_err
+tabella['V_OUT (V)'] = v_out
+tabella['V_OUT_err (V)'] = v_out_err
+tabella['G = V_OUT/V_IN'] = guadagno
+tabella['G_err'] = guadagno_err
+print(tabella)
+tabella.to_csv('tabella_der.csv', index=False)
+
+#grafico guadagno in funzione di frequenza
+plt.errorbar(f, guadagno, xerr = f_err, yerr = guadagno_err)
+plt.xlabel('Frequenza (Hz)')
+plt.ylabel('Guadagno')
+plt.xscale('log')
 plt.show()
+
 
 #fit dati range dati 0-6
 
 pstart = np.array([100, 0.000001])
 par, par_cov = optimize.curve_fit(g, f[:8], guadagno[:8], p0=[pstart])
+par_err = np.sqrt(par_cov.diagonal())
 
 y=g(f[:8], par[0], par[1])
 
@@ -46,4 +77,13 @@ plt.yscale('log')
 plt.show()
 print('parametri: ', par)
 freq_fit = 1/(2*np.pi*par[0]*par[1])
+freq_fit_err = (par_err[0]**2/par[0]**2+par_err[1]**2/par[1]**2)**0.5/(np.pi*2*par[0]*par[1])
 print('frequenza di taglio fit: ', freq_fit)
+
+#tabella con frequenza di taglio teorica, sperimentale, fit, su csv
+tabella2 = pd.DataFrame(index = ['Teorica', 'Sperimentale', 'Fit'])
+tabella2['Frequenza di taglio (Hz)'] = [f_taglio, f_taglio_sperimentale, freq_fit]
+tabella2['Errore (Hz)'] = [f_taglio_err, f_taglio_sperimentale_err, freq_fit_err]
+
+print(tabella2)
+tabella2.to_csv('tabella_f_taglio.csv', index=True)
