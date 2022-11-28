@@ -14,21 +14,21 @@ f  = np.array(der_100['FREQUENZE'])
 v_in =np.array(der_100['V_IN'])
 v_out = np.array(der_100['V_OUT'])
 
-f_err = np.array([1,1,1,1,1,1,100,100,100,100,100,100,100]) #prova
+f_err = np.array([1,10,10,10,10,10,10,10,100,100,100,100,100]) #risoluzione generatore segnale
 v_in_err = np.full(len(v_in), 0.01) #prova
 v_out_err = np.full(len(v_out), 0.01) #prova
 
 #calcolo frequenza di taglio e propagazione errori
 r = 98
 c = 10**(-6)
-r_err = 0.1 #prova
-c_err = 10**(-8) #prova
+r_err = r*0.008+0.2 #+- 0.8% + 2 digit
+c_err = 10**(-6)*0.10 #10% POI CONTROLLIAMO IN LABORATORIO
 
 f_taglio = 1/(np.pi*2*r*c)
 f_taglio_err = (r_err**2/r**2+c_err**2/c**2)**0.5/(np.pi*2*r*c)
 
 f_taglio_sperimentale = 1645
-f_taglio_sperimentale_err = 1 #prova
+f_taglio_sperimentale_err = 10 #risoluzione generatore segnali
 
 
 print('la frequenza di taglio teorica è ', f_taglio)

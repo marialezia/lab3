@@ -94,7 +94,7 @@ plt.plot(f22, A22, color = 'palevioletred', alpha= 0.5)
 plt.plot(f12, A12, color = 'teal', alpha = 0.5)
 plt.plot(f21, A21, color = 'indigo', alpha = 0.5)
 
-#plt.yscale('log')
+plt.yscale('log')
 plt.legend()
 plt.grid()
 
