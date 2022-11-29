@@ -6,7 +6,7 @@ from scipy import optimize
 
 #INVERTENTE 217_220: dati da file csv, calcolo guadagno e propagazione errori
 
-inv_217_220 = pd.read_csv('dati2_217_220.csv')
+inv_217_220 = pd.read_csv('guadagno1.csv')
 
 f22  = np.array(inv_217_220['FREQUENZA'])
 v22_in =np.array(inv_217_220['V_IN'])
@@ -21,7 +21,7 @@ guadagno22_err = np.sqrt(v22_out_err**2+v22_in_err**2*v22_out**2/(v22_in**2))/v2
 
 #INVERTENTE 220_100: dati da file csv, calcolo guadagno e propagazione errori
 
-inv_220_100 = pd.read_csv('dati2_220_100.py')
+inv_220_100 = pd.read_csv('guadagno2.py')
 
 f21  = np.array(inv_220_100['FREQUENZA'])
 v21_in =np.array(inv_220_100['V_IN'])
@@ -37,7 +37,7 @@ guadagno21_err = np.sqrt(v21_out_err**2+v21_in_err**2*v21_out**2/(v21_in**2))/v2
 
 #INVERTENTE 100_220: dati da file csv, calcolo guadagno e propagazione errori
 
-inv_100_220 = pd.read_csv('dati2_100_220.csv')
+inv_100_220 = pd.read_csv('guadagno05.csv')
 
 f12  = np.array(inv_100_220['FREQUENZA'])
 v12_in =np.array(inv_100_220['V_IN'])
