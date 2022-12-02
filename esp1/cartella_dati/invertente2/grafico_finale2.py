@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy import optimize
 
 
-#INVERTENTE 217_220: dati da file csv, calcolo guadagno e propagazione errori
+#GUADAGNO1: dati da file csv, calcolo guadagno e propagazione errori
 
 inv_217_220 = pd.read_csv('guadagno1.csv')
 
@@ -13,8 +13,8 @@ v22_in =np.array(inv_217_220['V_IN'])
 v22_out = np.array(inv_217_220['V_OUT'])
 
 #f22_err = np.array([1,100,100,100,100,100,100,100]) #prova
-v22_in_err = np.full(len(v22_in), 0.01) #prova
-v22_out_err = np.full(len(v22_out), 0.01) #prova
+v22_in_err = np.full(len(v22_in), 0.04) #prova
+v22_out_err = np.full(len(v22_out), 0.04) #prova
 
 guadagno22 = v22_out/v22_in
 guadagno22_err = np.sqrt(v22_out_err**2+v22_in_err**2*v22_out**2/(v22_in**2))/v22_in
@@ -28,9 +28,9 @@ v21_in =np.array(inv_220_100['V_IN'])
 v21_out = np.array(inv_220_100['V_OUT'])
 
 
-#f21_err = np.array([1,1,100,100,100,100,100,100,100]) #prova
-v21_in_err = np.full(len(v21_in), 0.01) #prova
-v21_out_err = np.full(len(v21_out), 0.01) #prova
+f21_err = np.array([10,10,100,100,100,100,100,100,100,100]) 
+v21_in_err = np.full(len(v21_in), 0.04) 
+v21_out_err = np.full(len(v21_out), 0.04) 
 
 guadagno21 = v21_out/v21_in
 guadagno21_err = np.sqrt(v21_out_err**2+v21_in_err**2*v21_out**2/(v21_in**2))/v21_in
@@ -43,9 +43,9 @@ f12  = np.array(inv_100_220['FREQUENZA'])
 v12_in =np.array(inv_100_220['V_IN'])
 v12_out = np.array(inv_100_220['V_OUT'])
 
-#f12_err = np.array([1,1,100,100,100,100,100,100,100]) #prova
-v12_in_err = np.full(len(v12_in), 0.01) #prova
-v12_out_err = np.full(len(v12_out), 0.01) #prova
+f12_err = np.array([10,10,100,100,100,100,100,100,100,100]) 
+v12_in_err = np.full(len(v12_in), 0.04) 
+v12_out_err = np.full(len(v12_out), 0.04)
 
 guadagno12 = v12_out/v12_in
 guadagno12_err = np.sqrt(v12_out_err**2+v12_in_err**2*v12_out**2/(v12_in**2))/v12_in
