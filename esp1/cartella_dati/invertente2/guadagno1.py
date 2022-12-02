@@ -30,7 +30,7 @@ tabella['V_OUT_err (V)'] = v_out_err
 tabella['G = V_OUT/V_IN'] = guadagno
 tabella['G_err'] = guadagno_err
 print(tabella)
-#tabella.to_csv('tabella_g1.csv', index=False)
+tabella.to_csv('tabella_g1.csv', index=False)
 
 #grafico guadagno in funzione di frequenza
 plt.errorbar(f, guadagno, xerr = f_err, yerr = guadagno_err, fmt = '-o')
