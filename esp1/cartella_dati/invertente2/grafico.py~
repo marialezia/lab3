@@ -1,0 +1,28 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#dati da file csv
+inv_100_220 = pd.read_csv('guadagno1.csv')
+print('DATI INVERTENTE 100_220')
+print(inv_100_220)
+
+f1  = np.array(inv_100_220['FREQUENZA'])
+v_in1 =np.array(inv_100_220['V_IN'])
+v_out1 = np.array(inv_100_220['V_OUT'])
+
+f_err1 = np.array([1,1,100,100,100,100,100,100,100,100]) #prova
+v_in_err1 = np.full(len(v_in), 0.01) #prova
+v_out_err1 = np.full(len(v_out), 0.01) #prova
+
+#calcolo guadagno e propagazione errori
+guadagno1 = v_out/v_in
+guadagno_err1 = np.sqrt(v_out_err**2+v_in_err**2*v_out**2/(v_in**2))/v_in
+
+
+#grafico guadagno in funzione di frequenza
+plt.errorbar(f1, guadagno1, xerr = f_err1, yerr = guadagno_err1, fmt = '-o')
+plt.xlabel('Frequenza (Hz)')
+plt.ylabel('Guadagno')
+plt.xscale('log')
+plt.show()
