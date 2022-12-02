@@ -11,9 +11,9 @@ f  = np.array(inv_220_100['FREQUENZA'])
 v_in =np.array(inv_220_100['V_IN'])
 v_out = np.array(inv_220_100['V_OUT'])
 
-f_err = np.array([1,1,100,100,100,100,100,100,100]) #prova
-v_in_err = np.full(len(v_in), 0.01) #prova
-v_out_err = np.full(len(v_out), 0.01) #prova
+f_err = np.array([10,10,100,100,100,100,100,100,100]) 
+v_in_err = np.full(len(v_in), 0.04) 
+v_out_err = np.full(len(v_out), 0.04) 
 
 #calcolo guadagno e propagazione errori
 guadagno = v_out/v_in

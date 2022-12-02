@@ -11,9 +11,9 @@ f  = np.array(inv_100_220['FREQUENZA'])
 v_in =np.array(inv_100_220['V_IN'])
 v_out = np.array(inv_100_220['V_OUT'])
 
-f_err = np.array([1,1,100,100,100,100,100,100,100]) #prova
-v_in_err = np.full(len(v_in), 0.01) #prova
-v_out_err = np.full(len(v_out), 0.01) #prova
+f_err = np.array([1,10,100,100,100,100,100,100,100])
+v_in_err = np.full(len(v_in), 0.04) 
+v_out_err = np.full(len(v_out), 0.04) 
 
 #calcolo guadagno e propagazione errori
 guadagno = v_out/v_in
@@ -30,7 +30,7 @@ tabella['V_OUT_err (V)'] = v_out_err
 tabella['G = V_OUT/V_IN'] = guadagno
 tabella['G_err'] = guadagno_err
 print(tabella)
-tabella.to_csv('tabella_100_220.csv', index=False)
+tabella.to_csv('tabella_100_220_g05.csv', index=False)
 
 #grafico guadagno in funzione di frequenza
 plt.errorbar(f, guadagno, xerr = f_err, yerr = guadagno_err)
