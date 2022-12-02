@@ -12,16 +12,16 @@ f22  = np.array(inv_217_220['FREQUENZA'])
 v22_in =np.array(inv_217_220['V_IN'])
 v22_out = np.array(inv_217_220['V_OUT'])
 
-#f22_err = np.array([1,100,100,100,100,100,100,100]) #prova
-v22_in_err = np.full(len(v22_in), 0.04) #prova
-v22_out_err = np.full(len(v22_out), 0.04) #prova
+f22_err = np.array([10,10, 100,100,100,100,100,100,100,100]) 
+v22_in_err = np.full(len(v22_in), 0.04) 
+v22_out_err = np.full(len(v22_out), 0.04)
 
 guadagno22 = v22_out/v22_in
 guadagno22_err = np.sqrt(v22_out_err**2+v22_in_err**2*v22_out**2/(v22_in**2))/v22_in
 
-#INVERTENTE 220_100: dati da file csv, calcolo guadagno e propagazione errori
+#GUADAGNO 2: dati da file csv, calcolo guadagno e propagazione errori
 
-inv_220_100 = pd.read_csv('guadagno2.py')
+inv_220_100 = pd.read_csv('guadagno2.csv')
 
 f21  = np.array(inv_220_100['FREQUENZA'])
 v21_in =np.array(inv_220_100['V_IN'])
@@ -35,7 +35,7 @@ v21_out_err = np.full(len(v21_out), 0.04)
 guadagno21 = v21_out/v21_in
 guadagno21_err = np.sqrt(v21_out_err**2+v21_in_err**2*v21_out**2/(v21_in**2))/v21_in
 
-#INVERTENTE 100_220: dati da file csv, calcolo guadagno e propagazione errori
+#GUADAGNO 0.5: dati da file csv, calcolo guadagno e propagazione errori
 
 inv_100_220 = pd.read_csv('guadagno05.csv')
 
@@ -50,33 +50,20 @@ v12_out_err = np.full(len(v12_out), 0.04)
 guadagno12 = v12_out/v12_in
 guadagno12_err = np.sqrt(v12_out_err**2+v12_in_err**2*v12_out**2/(v12_in**2))/v12_in
 
-'''
-#calcolo guadagno teorico
 
-A22 = np.full(len(v22_in),217/215)
-A21 = np.full(len(v21_in),217/98)
-A12 = np.full(len(v12_in), 98/217)
-
-
-#grafici separati invertente
-
-'''
 
 #grafico tutti insieme invertente
-plt.errorbar(f22, guadagno22, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'invertente $R_1= 217 \ \Omega$ e $R_2 =  215 \ \Omega$')
-plt.errorbar(f21, guadagno21, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label =  'invertente $R_1= 217 \ \Omega$ e $R_2 =  98 \ \Omega$')
-plt.errorbar(f12, guadagno12, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label =  'invertente $R_1= 98 \ \Omega$ e $R_2 =  217 \ \Omega$')
+plt.errorbar(f22, guadagno22, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'Invertente guadagno 1')
+plt.errorbar(f21, guadagno21, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label =  'Invertente guadagno 2')
+plt.errorbar(f12, guadagno12, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label =  'Invertente guadagno 0.5')
 plt.xscale('log')
-#plt.plot(f22, A22, color = 'palevioletred', alpha= 0.5)
-#plt.plot(f12, A12, color = 'teal', alpha = 0.5)
-#plt.plot(f21, A21, color = 'indigo', alpha = 0.5)
-
 plt.yscale('log')
 plt.legend()
 plt.grid()
 
 plt.show()
 '''
+
 #fit rette guadagno
 
 def retta(x, m, q):
