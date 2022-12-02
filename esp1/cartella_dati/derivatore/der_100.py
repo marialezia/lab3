@@ -15,8 +15,8 @@ v_in =np.array(der_100['V_IN'])
 v_out = np.array(der_100['V_OUT'])
 
 f_err = np.array([1,10,10,10,10,10,10,10,100,100,100,100,100]) #risoluzione generatore segnale
-v_in_err = np.full(len(v_in), 0.01) #prova
-v_out_err = np.full(len(v_out), 0.01) #prova
+v_in_err = np.full(len(v_in), 0.04) 
+v_out_err = np.full(len(v_out), 0.04)
 
 #calcolo frequenza di taglio e propagazione errori
 r = 98
@@ -68,13 +68,18 @@ par_err = np.sqrt(par_cov.diagonal())
 
 y=g(f[:8], par[0], par[1])
 
-plt.plot(f[:8], guadagno[:8], '-o', label='retta dati')
-plt.plot(f, guadagno_teor, label='retta teorica')
-plt.plot(f[:8], y, label='fit')
+plt.plot(f, guadagno_teor,color = 'violet',  label='Retta teorica', alpha = 0.8)
+plt.plot(f[:8], y, label='Fit', color = 'indigo', alpha = 0.8)
+plt.plot(f[:8], guadagno[:8], '-o',markersize = 3, color = 'teal', label='Retta dati', alpha = 0.8)
+
 plt.legend()
+plt.grid()
+plt.xlabel('Frequenza (Hz)')
+plt.ylabel('Guadagno')
 plt.xscale('log')
 plt.yscale('log')
 plt.show()
+
 print('parametri: ', par)
 freq_fit = 1/(2*np.pi*par[0]*par[1])
 freq_fit_err = (par_err[0]**2/par[0]**2+par_err[1]**2/par[1]**2)**0.5/(np.pi*2*par[0]*par[1])
