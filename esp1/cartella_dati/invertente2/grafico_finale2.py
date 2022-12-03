@@ -56,9 +56,12 @@ guadagno12_err = np.sqrt(v12_out_err**2+v12_in_err**2*v12_out**2/(v12_in**2))/v1
 plt.errorbar(f22, guadagno22, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'pink', label = 'Invertente guadagno 1')
 plt.errorbar(f21, guadagno21, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'lightseagreen', label =  'Invertente guadagno 2')
 plt.errorbar(f12, guadagno12, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'rebeccapurple', label =  'Invertente guadagno 0.5')
-plt.xscale('log')
+plt.xlabel('log(frequenza (Hz))')
+plt.ylabel('log(guadagno)')
 plt.yscale('log')
+plt.xscale('log')
 plt.legend()
+plt.title('Invertente - Secondo set')
 plt.grid()
 
 plt.show()

@@ -87,16 +87,19 @@ plt.show()
 
 #grafico tutti insieme invertente
 plt.errorbar(f22, guadagno22, xerr = f22_err, yerr = guadagno22_err, fmt = '-o', markersize = 3, color = 'firebrick', label = 'Invertente guadagno 1')
-plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'coral', label =  'Invertente guadagno 2')
-plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'peachpuff', label =  'Invertente guadagno 0.5')
+plt.errorbar(f21, guadagno21, xerr = f21_err, yerr = guadagno21_err,fmt ='-o',  markersize = 3, color = 'coral', label =  'Invertente guadagno 0.5')
+plt.errorbar(f12, guadagno12, xerr = f12_err, yerr = guadagno12_err, fmt ='-o',  markersize = 3, color = 'peachpuff', label =  'Invertente guadagno 2')
 plt.xscale('log')
+
 #plt.plot(f22, A22, color = 'palevioletred', alpha= 0.5)
 #plt.plot(f12, A12, color = 'teal', alpha = 0.5)
 #plt.plot(f21, A21, color = 'indigo', alpha = 0.5)
-plt.xlabel('Frequenza (Hz)')
-plt.ylabel('Guadagno')
+
+plt.xlabel('log(frequenza (Hz))')
+plt.ylabel('log(guadagno)')
 plt.yscale('log')
 plt.legend()
+plt.title('Invertente - Primo set')
 plt.grid()
 
 plt.show()
@@ -133,3 +136,4 @@ plt.show()
 print('parametri 100_200: ', par12)
 print('parametri 200_200: ', par22)
 print('parametri 200_100: ', par21)
+

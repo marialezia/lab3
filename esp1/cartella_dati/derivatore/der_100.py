@@ -14,7 +14,7 @@ f  = np.array(der_100['FREQUENZE'])
 v_in =np.array(der_100['V_IN'])
 v_out = np.array(der_100['V_OUT'])
 
-f_err = np.array([1,10,10,10,10,10,10,10,100,100,100,100,100]) #risoluzione generatore segnale
+f_err = np.array([1,10,10,10,10,10,10,10,100,100,100,100]) #risoluzione generatore segnale
 v_in_err = np.full(len(v_in), 0.04) 
 v_out_err = np.full(len(v_out), 0.04)
 
@@ -68,16 +68,18 @@ par_err = np.sqrt(par_cov.diagonal())
 
 y=g(f[:8], par[0], par[1])
 
-plt.plot(f, guadagno_teor,color = 'violet',  label='Retta teorica', alpha = 0.8)
-plt.plot(f[:8], y, label='Fit', color = 'indigo', alpha = 0.8)
-plt.plot(f[:8], guadagno[:8], '-o',markersize = 3, color = 'teal', label='Retta dati', alpha = 0.8)
+plt.plot(f, guadagno_teor,color = 'lightgreen' , linewidth= 3, label='Retta teorica', alpha = 0.8)
+plt.plot(f[:8], y, label='Fit', color = 'teal')
+#plt.plot(f[:8], guadagno[:8], '-o',markersize = 3, color = 'seagreen', label='Retta dati', alpha = 0.8)
+plt.plot(f, guadagno, '-o',markersize = 3, color = 'indigo', linewidth= 1.5,label='Retta dati', alpha = 0.8)
 
 plt.legend()
 plt.grid()
-plt.xlabel('Frequenza (Hz)')
-plt.ylabel('Guadagno')
+plt.xlabel('log(frequenza (Hz))')
+plt.ylabel('log(guadagno)')
 plt.xscale('log')
 plt.yscale('log')
+plt.title('Derivatore')
 plt.show()
 
 print('parametri: ', par)
