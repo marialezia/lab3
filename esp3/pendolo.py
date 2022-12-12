@@ -11,7 +11,7 @@ def gravita_err(l,f,l_err,f_err):
 
 def gravita2(T,l):
     return 4*np.pi**2*l/T**2
-
+'''
 #dati da csv
 dati = pd.read_csv('dati2.csv')
 f = dati['frequenza'].values
@@ -41,4 +41,6 @@ plt.plot(volt, '-o')
 plt.grid()
 plt.show()
 
+
+'''
 
