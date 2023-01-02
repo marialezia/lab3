@@ -2,13 +2,16 @@ import soundfile as sf
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import constants, fft
+import sys, os
+import funzioni as fz
+
 
 #apro il file .wav
 data, samplerate = sf.read('diapason.wav')
 
-print(samplerate)
-print(data)
-print(len(data))
+print('samplerate = ', samplerate)
+print('data = ', data)
+print('lunghezza = ', len(data))
 
 #plotto la waveform
 y = np.ones(len(data))
@@ -56,8 +59,9 @@ p=np.absolute(datafft)**2
 max1 = np.argmax(p)
 max2 = np.argmax(p[400:len(p)])
 max3 = np.argmax(p[1800:len(p)])
+
 '''
-plt.plot(fftfreq, p, color='limegreen')
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
 plt.plot(fftfreq[max1], p[max1], 'o', color='forestgreen')
 plt.plot(fftfreq[400:len(p)][max2], p[400:len(p)][max2], 'o', color='forestgreen')
 plt.plot(fftfreq[1800:len(p)][max3], p[1800:len(p)][max3], 'o', color='forestgreen')
@@ -65,6 +69,7 @@ plt.xlabel('Frequenza (hz)')
 plt.ylabel('Potenza (u.a)')
 plt.show()
 '''
+
 max4 = np.argmax(datafft)
 max5 = np.argmax(datafft[700:1800])
 max6 = np.argmax(datafft[1800:len(datafft)])
@@ -83,10 +88,29 @@ plt.plot(fftfreq[1800:len(datafft)][min3], datafft[1800:len(datafft)][min3].real
 plt.show()
 '''
 
-#mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
 mask1 = p == p[max1]
 mask2 = p == p[400:len(p)][max2]
 mask3 = p == p[1400:len(p)][max3]
 
-plt.plot(fftfreq[mask1], p[mask1], 'o')
+
+#trovo la posizione dei massimi
+sogliaa = 200000
+maxx = fz.massimi(p, sogliaa,3)
+
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+for i in range(len(maxx)):
+    plt.plot(fftfreq[maxx[i]], p[maxx[i]],'o', color = 'forestgreen')
+plt.xlabel('Frequenza (hz)')
+plt.ylabel('Potenza (u.a)')
+plt.show()
+'''
+
+
+#mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
+#creo maschera
+
+mask = fz.mascheraCoeff(p, maxx, sogliaa, 0)
+
+plt.plot(fftfreq[mask], p[mask], 'o')
 plt.show()

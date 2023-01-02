@@ -2,6 +2,10 @@ import soundfile as sf
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import constants, fft
+import sys, os
+import funzioni as fz
+
+
 
 #apro il file .wav
 data, samplerate = sf.read('pulita_semplice.wav')
@@ -52,8 +56,30 @@ plt.show()
 '''
 #potenza
 p=np.absolute(datafft)**2
-
+'''
 plt.plot(fftfreq, p, color='limegreen')
 plt.xlabel('Frequenza (hz)')
 plt.ylabel('Potenza (u.a)')
+plt.show()
+'''
+
+#trovo la posizione dei massimi
+sogliaa = 100000
+maxx = fz.massimi(p, sogliaa,14)
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+for i in range(len(maxx)):
+    plt.plot(fftfreq[maxx[i]], p[maxx[i]],'o', color = 'forestgreen', markersize = 4)
+plt.xlabel('Frequenza (hz)')
+plt.ylabel('Potenza (u.a)')
+plt.show()
+'''
+
+#mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
+#creo maschera
+
+mask = fz.mascheraCoeff(p, maxx, 2000000, 3)
+
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+plt.plot(fftfreq[mask], p[mask], 'o', color = 'forestgreen', markersize = 4)
 plt.show()
