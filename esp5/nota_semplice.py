@@ -10,9 +10,11 @@ import funzioni as fz
 #apro il file .wav
 data, samplerate = sf.read('pulita_semplice.wav')
 
-print(samplerate)
-print(data)
-print(len(data))
+
+print('samplerate = ', samplerate)
+print('data = ', data)
+print('lunghezza = ', len(data))
+
 
 #plotto la waveform
 y = np.ones(len(data))
@@ -34,15 +36,16 @@ plt.show()
 
 #fft dell'array
 datafft = fft.rfft(y)
-print(datafft.size)
-print(len(y))
+print('lunghezza trasformata fourier = ', datafft.size)
+print('lunghezza array dati = ', len(y))
 
 fftfreq = fft.rfftfreq(len(y), 1.0/samplerate)
 
-print(datafft)
-print(len(datafft))
-print(fftfreq)
-print(len(fftfreq))
+print('trasformata di Fourier = ', datafft)
+print('lunghezza tf = ', len(datafft))
+print('frequenze tf = ', fftfreq)
+print('lunghezza frequenze = ', len(fftfreq))
+
 
 #grafico ampiezze reale e immaginaria
 '''
@@ -75,6 +78,8 @@ plt.ylabel('Potenza (u.a)')
 plt.show()
 '''
 
+
+fz.printaFreq(fftfreq, maxx)
 #mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
 #creo maschera
 

@@ -43,3 +43,10 @@ def mascheraCoeff(spettroPot, massimi, soglia, termini):
                 mask[i+j] = True
                 mask[i-j] = True
     return mask
+
+def printaFreq(frequenze, massimi):
+    for i in range(len(massimi)) :
+        print('Frequenza ', i, ' = ', frequenze[massimi[i]])
+
+
+            
