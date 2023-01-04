@@ -1,0 +1,29 @@
+import numpy as np
+import pandas as pd
+
+resistenze = (10, 27, 33, 39, 1200, 68000, 220)
+resistenzeErr = 0.05*resistenze
+
+Vref1 = (310,310,310,258)
+Vref2 = (313,318,319,267)
+Vref3 = (316,326,328,277)
+Vref4 = (319,333,337,287)
+
+Vref1Err = 0.008*Vref1+0.3
+Vref2Err = 0.008*Vref1+0.3
+Vref3Err = 0.008*Vref1+0.3
+Vref4Err = 0.008*Vref1+0.3
+
+tabella = pd.DataFrame()
+tabella['R'] = resistenze
+tabella['Rerr'] = resistenzeErr
+tabella['Vref1'] = Vref1
+tabella['Vref1 Err'] = Vref1Err
+tabella['Vref2'] = Vref2
+tabella['Vref2 Err'] = Vref2Err
+tabella['Vref3'] = Vref2
+tabella['Vref3 Err'] = Vref3Err
+tabella['Vref4'] = Vref4
+tabella['Vref4 Err'] = Vref4Err
+print(tabella)
+tabella.to_csv('dati.csv')
