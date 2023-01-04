@@ -46,7 +46,7 @@ scala_2s_1 = pd.read_csv('scala_2s_1.csv')
 v2s_1 = scala_2s_1['Volt'].values
 t2s_1 = scala_2s_1['Increment'][0]
 start2s_1 = scala_2s_1['Start'][0] 
-tempi2s_1 = np.arange(start2s_1,start2s_1+t2s_1*len(v2s_1), t2s_1)
+tempi2s_1 = np.arange(0,t2s_1*len(v2s_1), t2s_1)
 
 #SCALA 2S SECONDA PROVA
 scala_2s_2 = pd.read_csv('scala_2s_2.csv')
@@ -83,12 +83,12 @@ plt.plot(tempi1s, v1s, '-o', markersize = 3, color = 'firebrick')
 plt.title('Scala 1s')
 plt.grid()
 plt.xlabel('Tempo (s)')
-plt.ylabel('Volt (v)')
+plt.ylabel('Volt (V)')
 plt.show()
 
 
 plt.plot(tempi2s_1, v2s_1, '-o', markersize = 3, color = 'rosybrown')
-plt.title('Scala 2s - prima prova')
+plt.title('Scala 2s - 1° prova')
 plt.xlabel('Tempo (s)')
 plt.ylabel('Volt (v)')
 plt.grid()

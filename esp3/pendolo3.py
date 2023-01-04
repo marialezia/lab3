@@ -40,6 +40,7 @@ v2s_1 = scala_2s_1['Volt'].values
 t2s_1 = scala_2s_1['Increment'][0]
 start2s_1 = scala_2s_1['Start'][0] 
 tempi2s_1 = np.arange(start2s_1,start2s_1+t2s_1*len(v2s_1), t2s_1)
+print(len(v2s_1))
 
 #SCALA 2S SECONDA PROVA
 scala_2s_2 = pd.read_csv('scala_2s_2.csv')
@@ -115,7 +116,8 @@ gErrRel = gErr/g
 tabella = pd.DataFrame()
 tabella['Scala'] = ('0.5 s','1s', '2s 1° prova', '2s 2° prova', '2s 3° prova', '2s 4°prova')
 tabella['T'] = (periodoxs, periodo1s, periodo2sp1, periodo2sp2, periodo2sp3, periodo2sp4)
-tabella['T err'] = (periodoErrxs, periodoErr1s, periodoErr2sp1, periodoErr2sp2, periodoErr2sp3, periodoErr2sp4) 
+tabella['T err'] = (periodoErrxs, periodoErr1s, periodoErr2sp1, periodoErr2sp2, periodoErr2sp3, periodoErr2sp4)
+tabella['Incremento'] = (txs_1, t1s, t2s_1, t2s_2, t2s_3, t2s_4)
 
 print(tabella)
 tabella.to_csv('periodi.csv', index=False)
