@@ -69,6 +69,47 @@ plt.show()
 #trovo la posizione dei massimi
 sogliaa = 100000
 maxx = fz.massimi(p, sogliaa,14)
+
+#printo frequenze
+fz.printaFreq(fftfreq, maxx)
+
+#selezionare i picchi, vari casi:
+
+#1) il picco principale
+maskpp = fz.mascheraCoeff(p, maxx, 7000000, 0)
+
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+plt.plot(fftfreq[maskpp], p[maskpp], 'o')
+plt.show()
+'''
+
+#2) i primi due picchi principali, ma solo il termine "centrale"
+maskpp2 = fz.mascheraCoeff(p, maxx, 5000000, 0)
+
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+plt.plot(fftfreq[maskpp2], p[maskpp2], 'o')
+plt.show()
+'''
+
+#3) i picchi principali, ma solo il termine "centrale"
+maskpp3 = fz.mascheraCoeff(p, maxx, 2000000, 0)
+
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+plt.plot(fftfreq[maskpp3], p[maskpp3], 'o')
+plt.show()
+'''
+
+#4) i picchi principali con anche 1 o 2 termini, per lato, oltre quello centrale
+maskpp4 = fz.mascheraCoeff(p, maxx, 2000000, 3)
+'''
+plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
+plt.plot(fftfreq[maskpp4], p[maskpp4], 'o')
+plt.show()
+'''
+
 '''
 plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
 for i in range(len(maxx)):
@@ -79,12 +120,50 @@ plt.show()
 '''
 
 
-fz.printaFreq(fftfreq, maxx)
-#mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
-#creo maschera
+#dati filtrati
+filtropp = datafft.copy()
+filtropp[~ maskpp]=0
 
-mask = fz.mascheraCoeff(p, maxx, 2000000, 3)
+filtropp2 = datafft.copy()
+filtropp2[~ maskpp2]=0
 
-plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
-plt.plot(fftfreq[mask], p[mask], 'o', color = 'forestgreen', markersize = 4)
+filtropp3 = datafft.copy()
+filtropp3[~ maskpp3]=0
+
+filtropp4 = datafft.copy()
+filtropp4[~ maskpp4]=0
+
+#risintetizziamo i dati filtrati
+dataSint1 = fft.irfft(filtropp, n = len(y))
+dataSint2 = fft.irfft(filtropp2, n = len(y))
+dataSint3 = fft.irfft(filtropp3, n = len(y))
+dataSint4 = fft.irfft(filtropp4, n = len(y))
+
+#produco file audio
+                       
+sf.write('notaSempliceDataSint1.wav', dataSint1, samplerate)
+sf.write('notaSempliceDataSint2.wav', dataSint2, samplerate)
+sf.write('notaSempliceDataSint3.wav', dataSint3, samplerate)
+sf.write('notaSempliceDataSint4.wav', dataSint4, samplerate)
+
+#grafico waveform
+fig,ax = plt.subplots(2,2, figsize=(12,12) )
+ax[0][0].set_title('picco principale')
+ax[0][1].set_title( 'primi due picchi principali')
+ax[1][0].set_title('picchi principali solo termine centrale')
+ax[1][1].set_title('picchi principali con un termine ai lati')
+
+
+ax[0][0].plot(x, y, color = 'seagreen', alpha = 0.5)
+ax[0][1].plot(x, y, color = 'seagreen', alpha = 0.5)
+ax[1][0].plot(x, y, color = 'seagreen', alpha = 0.5)
+ax[1][1].plot(x, y, color = 'seagreen', alpha = 0.5)
+
+ax[0][0].plot(x, dataSint1, alpha = 0.5, label = 'picco principale')
+ax[0][1].plot(x, dataSint2, alpha = 0.5, label = 'primi due picchi principali')
+ax[1][0].plot(x, dataSint3, alpha = 0.5, label = 'picchi principali solo termine centrale')
+ax[1][1].plot(x, dataSint4, alpha = 0.5, label = 'picchi principali con un termine ai lati')
+plt.legend()
+plt.xlabel('Tempo[s]')
+plt.ylabel('Ampiezza (u.a)')
 plt.show()

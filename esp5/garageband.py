@@ -91,11 +91,7 @@ plt.plot(fftfreq[1800:len(datafft)][min3], datafft[1800:len(datafft)][min3].real
 plt.show()
 '''
 
-'''VECCHIA VERSIONE MASCHERE
-mask1 = p == p[max1]
-mask2 = p == p[400:len(p)][max2]
-mask3 = p == p[1400:len(p)][max3]
-'''
+
 
 #trovo la posizione dei massimi con funzione
 sogliaa = 200000
