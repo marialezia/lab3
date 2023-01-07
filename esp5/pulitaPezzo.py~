@@ -7,7 +7,7 @@ import funzioni as fz
 
 
 #apro il file .wav
-data, samplerate = sf.read('diapason.wav')
+data, samplerate = sf.read('pulita_pezzo.wav')
 
 print('samplerate = ', samplerate)
 print('data = ', data)
@@ -230,12 +230,12 @@ dataSint3 = fft.irfft(filtropp3, n = len(y))
 dataSint4 = fft.irfft(filtropp4, n = len(y))
 
 #produco file audio
-                       
+ '''                      
 sf.write('diapasonDataSint1.wav', dataSint1, samplerate)
 sf.write('diapasonDataSint2.wav', dataSint2, samplerate)
 sf.write('diapasonDataSint3.wav', dataSint3, samplerate)
 sf.write('diapasonDataSint4.wav', dataSint4, samplerate)
-
+'''
 #grafico waveform
 fig,ax = plt.subplots(2,2, figsize=(12,12) )
 ax[0][0].set_title('picco principale')
