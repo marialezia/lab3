@@ -48,15 +48,19 @@ print('lunghezza frequenze = ', len(fftfreq))
 
 
 #grafico ampiezze reale e immaginaria
-'''
+
 fig, ax = plt.subplots(2,1, figsize=(40,40))
 ax[0].plot(fftfreq, datafft.real, color='rebeccapurple')
 ax[1].plot(fftfreq, datafft.imag, color='cyan')
 ax[0].set_title('Ampiezza reale')
 ax[1].set_title('Ampiezza immaginaria')
+ax[0].set_xlabel('Frequenza (Hz)')
+ax[0].set_ylabel('Ampiezza reale (u.a.)')
+ax[1].set_xlabel('Frequenza (Hz)')
+ax[1].set_ylabel('Ampiezza immaginaria (u.a.)')
 fig.suptitle('fft')
 plt.show()
-'''
+
 #potenza
 p=np.absolute(datafft)**2
 '''
@@ -110,6 +114,14 @@ plt.plot(fftfreq[maskpp4], p[maskpp4], 'o')
 plt.show()
 '''
 
+fig3, ax3 = plt.subplots(1,3, figsize=(40,40))
+for i in range(3):
+    ax3[i].plot(fftfreq, p,'-o', color='limegreen')
+ax3[0].set_title('Primo picco')
+ax3[1].set_title('Secondo picco')
+ax3[2].set_title('Terzo picco')
+plt.show()
+
 '''
 plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
 for i in range(len(maxx)):
@@ -119,6 +131,19 @@ plt.ylabel('Potenza (u.a)')
 plt.show()
 '''
 
+
+#potenze filtrate
+potPp = p.copy()
+potPp[~ maskpp]=0
+
+potPp2 = p.copy()
+potPp2[~ maskpp2]=0
+
+potPp3 = p.copy()
+potPp3[~ maskpp3]=0
+
+potPp4 = p.copy()
+potPp4[~ maskpp4]=0
 
 #dati filtrati
 filtropp = datafft.copy()
@@ -132,6 +157,44 @@ filtropp3[~ maskpp3]=0
 
 filtropp4 = datafft.copy()
 filtropp4[~ maskpp4]=0
+
+
+#grafico picchi selezionati
+fig2,ax2 = plt.subplots(2,2, figsize=(12,12) )
+
+ax2[0][0].set_title('Picco principale')
+ax2[0][1].set_title('Primi due picchi principali')
+ax2[1][0].set_title('Picchi principali solo termine centrale')
+ax2[1][1].set_title('Picchi principali con due termine ai lati')
+
+ax2[0][0].plot(fftfreq, p,'-', markersize = 1, color='seagreen', label = 'segnale originale')
+ax2[1][0].plot(fftfreq, p,'-', markersize = 1, color='seagreen', label = 'segnale originale')
+ax2[0][1].plot(fftfreq, p,'-', markersize = 1, color='seagreen', label = 'segnale originale')
+ax2[1][1].plot(fftfreq, p,'-', markersize = 1, color='seagreen', label = 'segnale originale')
+
+ax2[0][0].plot(fftfreq[maskpp], p[maskpp], 'o', color='deepskyblue', alpha = 0.8)
+ax2[0][1].plot(fftfreq[maskpp2], p[maskpp2], 'o', color='deepskyblue', alpha = 0.8)
+ax2[1][0].plot(fftfreq[maskpp3], p[maskpp3], 'o', color='deepskyblue', alpha = 0.8)
+ax2[1][1].plot(fftfreq[maskpp4], p[maskpp4], 'o', color='deepskyblue', alpha = 0.8)
+
+
+ax2[0][0].legend()
+ax2[0][1].legend()
+ax2[1][1].legend()
+ax2[1][0].legend()
+
+
+ax2[0][0].set_xlabel('Frequenza (Hz)')
+ax2[0][0].set_ylabel('Ampiezza (u.a)')
+ax2[0][1].set_xlabel('Frequenza (Hz)')
+ax2[0][1].set_ylabel('Ampiezza (u.a)')
+ax2[1][1].set_xlabel('Frequenza (Hz)')
+ax2[1][1].set_ylabel('Ampiezza (u.a)')
+ax2[1][0].set_xlabel('Frequenza (Hz)')
+ax2[1][0].set_ylabel('Ampiezza (u.a)')
+
+
+plt.show()
 
 #risintetizziamo i dati filtrati
 dataSint1 = fft.irfft(filtropp, n = len(y))
@@ -147,23 +210,38 @@ sf.write('notaSempliceDataSint3.wav', dataSint3, samplerate)
 sf.write('notaSempliceDataSint4.wav', dataSint4, samplerate)
 
 #grafico waveform
+
+#grafico waveform
 fig,ax = plt.subplots(2,2, figsize=(12,12) )
 ax[0][0].set_title('picco principale')
 ax[0][1].set_title( 'primi due picchi principali')
 ax[1][0].set_title('picchi principali solo termine centrale')
 ax[1][1].set_title('picchi principali con un termine ai lati')
 
+ax[0][0].plot(x, y, color = 'seagreen', alpha = 0.5, label = 'segnale originale')
+ax[0][1].plot(x, y, color = 'seagreen', alpha = 0.5, label = 'segnale originale')
+ax[1][0].plot(x, y, color = 'seagreen', alpha = 0.5, label = 'segnale originale')
+ax[1][1].plot(x, y, color = 'seagreen', alpha = 0.5, label = 'segnale originale')
 
-ax[0][0].plot(x, y, color = 'seagreen', alpha = 0.5)
-ax[0][1].plot(x, y, color = 'seagreen', alpha = 0.5)
-ax[1][0].plot(x, y, color = 'seagreen', alpha = 0.5)
-ax[1][1].plot(x, y, color = 'seagreen', alpha = 0.5)
+ax[0][0].plot(x, dataSint1, alpha = 0.5, label = 'segnale filtrato')
+ax[0][1].plot(x, dataSint2, alpha = 0.5, label = 'segnale filtrato')
+ax[1][0].plot(x, dataSint3, alpha = 0.5, label = 'segnale filtrato')
+ax[1][1].plot(x, dataSint4, alpha = 0.5, label = 'segnale filtrato')
 
-ax[0][0].plot(x, dataSint1, alpha = 0.5, label = 'picco principale')
-ax[0][1].plot(x, dataSint2, alpha = 0.5, label = 'primi due picchi principali')
-ax[1][0].plot(x, dataSint3, alpha = 0.5, label = 'picchi principali solo termine centrale')
-ax[1][1].plot(x, dataSint4, alpha = 0.5, label = 'picchi principali con un termine ai lati')
-#plt.legend()
-plt.xlabel('Tempo[s]')
-plt.ylabel('Ampiezza (u.a)')
+ax[0][0].legend()
+ax[0][1].legend()
+ax[1][1].legend()
+ax[1][0].legend()
+
+
+ax[0][0].set_xlabel('Tempo(s)')
+ax[0][0].set_ylabel('Ampiezza (u.a)')
+ax[0][1].set_xlabel('Tempo(s)')
+ax[0][1].set_ylabel('Ampiezza (u.a)')
+ax[1][1].set_xlabel('Tempo(s)')
+ax[1][1].set_ylabel('Ampiezza (u.a)')
+ax[1][0].set_xlabel('Tempo(s)')
+ax[1][0].set_ylabel('Ampiezza (u.a)')
+
+
 plt.show()

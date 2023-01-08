@@ -59,6 +59,8 @@ ax[1].set_ylabel('Ampiezza immaginaria (u.a.)')
 fig.suptitle('fft')
 plt.show()
 '''
+
+
 #grafico potenza con massimi (VECCHIA VERSIONE MASSIMI)
 
 
@@ -102,12 +104,16 @@ sogliaa = 200000
 maxx = fz.massimi(p, sogliaa,3)
 
 
+
+'''
 plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
 for i in range(len(maxx)):
     plt.plot(fftfreq[maxx[i]], p[maxx[i]],'o', color = 'forestgreen')
 plt.xlabel('Frequenza (hz)')
 plt.ylabel('Potenza (u.a)')
 plt.show()
+'''
+
 
 
 #mascherare (mettere a zero) i coefficienti, tranne alcuni scelti
@@ -151,6 +157,15 @@ plt.plot(fftfreq, p,'-o', markersize = 1, color='limegreen')
 plt.plot(fftfreq[maskpp4], p[maskpp4], 'o')
 plt.show()
 '''
+
+fig3, ax3 = plt.subplots(1,3, figsize=(40,40))
+for i in range(len(maxx)):
+    ax3[i].plot(fftfreq, p,'-o', color='limegreen')
+ax3[0].set_title('Primo picco')
+ax3[1].set_title('Secondo picco')
+ax3[2].set_title('Terzo picco')
+plt.show()
+
 
 #potenze filtrate
 potPp = p.copy()
